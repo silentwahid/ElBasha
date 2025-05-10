@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض أعمالنا - شركة الباشا</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #4E342E;
+            color: white;
+            padding-top: 80px;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles (Same as Main Page) */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #3E2723;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        header.scrolled {
+            padding: 10px 30px;
+            background-color: rgba(62, 39, 35, 0.98);
+            backdrop-filter: blur(5px);
+        }
+
+        header img {
+            height: 50px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled img {
+            height: 40px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 5px 10px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #FFEB3B;
+            bottom: 0;
+            right: 0;
+            transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+            right: auto;
+            left: 0;
+        }
+
+        nav a:hover {
+            color: #FFEB3B;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 26px;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .menu-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Portfolio Hero Section */
+        .portfolio-hero {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+            background-image: linear-gradient(rgba(78, 52, 46, 0.9), rgba(78, 52, 46, 0.9)), url('portfolio-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .portfolio-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .portfolio-hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+
+        /* Portfolio Filter */
+        .portfolio-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 40px auto;
+            max-width: 800px;
+        }
+
+        .filter-btn {
+            background-color: transparent;
+            color: white;
+            border: 2px solid #FFEB3B;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: #FFEB3B;
+            color: #3E2723;
+        }
+
+        /* Portfolio Grid */
+        .portfolio-container {
+            padding: 60px 20px;
+            background-color: #3E2723;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            height: 250px;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .portfolio-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(62, 39, 35, 0.9), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-category {
+            color: #FFEB3B;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .portfolio-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 235, 59, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-btn i {
+            color: #3E2723;
+            font-size: 24px;
+            margin-right: -3px;
+        }
+
+        .portfolio-item:hover .play-btn {
+            background-color: #FFEB3B;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* Video Modal */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .video-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            width: 80%;
+            max-width: 900px;
+            position: relative;
+        }
+
+        .modal-video {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #FFEB3B;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 80px 20px;
+            background-color: #4E342E;
+            text-align: center;
+        }
+
+        .stats-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .stat-item {
+            padding: 30px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            color: #FFEB3B;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-title {
+            font-size: 18px;
+        }
+
+        /* Footer Styles (Same as Main Page) */
+        footer {
+            background-color: #3E2723;
+            padding: 60px 20px 30px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-wave {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            width: 100%;
+            height: 50px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%234E342E" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%234E342E" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%234E342E"/></svg>');
+            background-size: cover;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            height: 60px;
+            width: auto;
+        }
+
+        .footer-about p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #4E342E;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 18px;
+        }
+
+        .social-icon:hover {
+            background-color: #FFEB3B;
+            color: #3E2723;
+            transform: translateY(-3px);
+        }
+
+        .footer-links h3 {
+            color: #FFEB3B;
+            font-size: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #FFEB3B;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: block;
+            padding: 5px 0;
+        }
+
+        .footer-links a:hover {
+            color: #FFEB3B;
+            transform: translateX(-5px);
+        }
+
+        .footer-links a::before {
+            content: '→ ';
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+        }
+
+        .footer-contact h3 {
+            color: #FFEB3B;
+            font-size: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-contact h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #FFEB3B;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .contact-icon {
+            color: #FFEB3B;
+            font-size: 20px;
+            margin-left: 15px;
+            margin-top: 3px;
+        }
+
+        .contact-info h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .contact-info p, 
+        .contact-info a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .contact-info a:hover {
+            color: #FFEB3B;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid #5D4037;
+            font-size: 14px;
+            color: #bdbdbd;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+            
+            nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 100%;
+                background-color: #3E2723;
+                padding: 20px 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            nav a {
+                padding: 10px 30px;
+                border-bottom: 1px solid #5D4037;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+            .portfolio-hero {
+                height: 50vh;
+            }
+            
+            .portfolio-hero h1 {
+                font-size: 36px;
+            }
+            
+            .portfolio-hero p {
+                font-size: 18px;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                width: 95%;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links h3,
+            .footer-contact h3 {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="logo.jpg" alt="شعار الباشا">
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <nav id="nav-menu">
+            <a href="index.html">الرئيسية</a>
+            <a href="services.html">خدماتنا</a>
+            <a href="portfolio.html">اعمالنا </a>
+            <a href="contact.html" class="active">تواصل معنا</a>
+        </nav>
+    </header>
+
+    <section class="portfolio-hero">
+        <h1>معرض أعمالنا</h1>
+        <p>استكشف بعض النتائج التي حققناها لعملائنا الكرام في مختلف المجالات</p>
+    </section>
+
+    <div class="portfolio-filter">
+        <button class="filter-btn active" data-filter="all">الكل</button>
+        <button class="filter-btn" data-filter="company">تأسيس الشركات</button>
+        <button class="filter-btn" data-filter="visa">التأشيرات والإقامة</button>
+        <button class="filter-btn" data-filter="legal">الخدمات القانونية</button>
+        <button class="filter-btn" data-filter="success">قصص النجاح</button>
+    </div>
+
+    <section class="portfolio-container">
+        <div class="portfolio-grid">
+            <!-- Company Formation Videos -->
+            <div class="portfolio-item" data-category="company">
+                <video class="portfolio-video" loop muted poster="company-poster1.jpg">
+                    <source src="company-formation1.mp4" type="video/mp4">
+                </video>
+                <div class="portfolio-overlay">
+                    <span class="portfolio-category">تأسيس الشركات</span>
+                    <h3 class="portfolio-title">تأسيس شركة في المنطقة الحرة</h3>
+                </div>
+                <div class="play-btn">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="company">
+                <video class="portfolio-video" loop muted poster="company-poster2.jpg">
+                    <source src="company-formation2.mp4" type="video/mp4">
+                </video>
+                <div class="portfolio-overlay">
+                    <span class="portfolio-category">تأسيس الشركات</span>
+                    <h3 class="portfolio-title">افتتاح فرع لشركة أجنبية</h3>
+                </div>
+                <div class="play-btn">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+
+            <!-- Visa Services Videos -->
+            <div class="portfolio-item" data-category="visa">
+                <video class="portfolio-video" loop muted poster="visa-poster1.jpg">
+                    <source src="investor-visa.mp4" type="video/mp4">
+                </video>
+                <div class="portfolio-overlay">
+                    <span class="portfolio-category">التأشيرات والإقامة</span>
+                    <h3 class="portfolio-title">تأشيرة مستثمر لمدة 5 سنوات</h3>
+                </div>
+                <div class="play-btn">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="visa">
+                <video class="portfolio-video" loop muted poster="visa-poster2.jpg">
+                    <source src="family-visa.mp4" type="video/mp4">
+                </video>
+                <div class="portfolio-overlay">
+                    <span class="portfolio-category">التأشيرات والإقامة</span>
+                    <h3 class="portfolio-title">تأشيرات عائلية لموظفين</h3>
+                </div>
+                <div class="play-btn">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+
+            <!-- Legal Services Videos -->
+            <div class="portfolio-item" data-category="legal">
+                <video class="portfolio-video" loop muted poster="legal-poster1.jpg">
+                    <source src="legal-case1.mp4" type="video/mp4">
+                </video>
+                <div class="portfolio-overlay">
+                    <span class="portfolio-category">الخدمات القانونية</span>
+                    <h3 class="portfolio-title">حل نزاع تجاري</h3>
+                </div>
+                <div class="play-btn">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="legal">
+                <video class="portfolio-video" loop muted poster="legal-poster2.jpg">
+                    <source src="document-clearing.mp4" type="video/mp4">
+                </video>
+                <div class="portfolio-overlay">
+                    <span class="portfolio-category">الخدمات القانونية</span>
+                    <h3 class="portfolio-title">تخليص معاملات حكومية</h3>
+                </div>
+                <div class="play-btn">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+
+            <!-- Success Stories -->
+            <div class="portfolio-item" data-category="success">
+                <video class="portfolio-video" loop muted poster="success-poster1.jpg">
+                    <source src="success-story1.mp4" type="video/mp4">
+                </video>
+                <div class="portfolio-overlay">
+                    <span class="portfolio-category">قصص النجاح</span>
+                    <h3 class="portfolio-title">شركة تجارية ناشئة</h3>
+                </div>
+                <div class="play-btn">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="success">
+                <video class="portfolio-video" loop muted poster="success-poster2.jpg">
+                    <source src="success-story2.mp4" type="video/mp4">
+                </video>
+                <div class="portfolio-overlay">
+                    <span class="portfolio-category">قصص النجاح</span>
+                    <h3 class="portfolio-title">مستثمر أجنبي في دبي</h3>
+                </div>
+                <div class="play-btn">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Modal -->
+    <div class="video-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <video class="modal-video" controls>
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number" data-count="250">0</div>
+                <div class="stat-title">شركة تم تأسيسها</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-count="1200">0</div>
+                <div class="stat-title">تأشيرة تم إصدارها</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-count="98">0</div>
+                <div class="stat-title">نسبة رضا العملاء</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-count="15">0</div>
+                <div class="stat-title">سنوات من الخبرة</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-wave"></div>
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <img src="logo.jpg" alt="شعار الباشا">
+                </div>
+                <p>
+                    شركة الباشا تقدم حلولاً قانونية وإدارية متكاملة لتأسيس وإدارة الأعمال في الإمارات العربية المتحدة. نضمن لعملائنا معاملات سلسة ونتائج مضمونة بفريق من الخبراء القانونيين.
+                </p>
+                <div class="footer-social">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="services.html">خدماتنا</a></li>
+                    <li><a href="portfolio.html">معرض الأعمال</a></li>
+                    <li><a href="#contact">تواصل معنا</a></li>
+                    <li><a href="#">سياسة الخصوصية</a></li>
+                    <li><a href="#">شروط الخدمة</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>خدماتنا</h3>
+                <ul>
+                    <li><a href="#">تأسيس الشركات</a></li>
+                    <li><a href="#">تأشيرات المستثمرين</a></li>
+                    <li><a href="#">تخليص المعاملات</a></li>
+                    <li><a href="#">الاستشارات القانونية</a></li>
+                    <li><a href="#">الخدمات المحاسبية</a></li>
+                    <li><a href="#">الموارد البشرية</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h3>معلومات التواصل</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h4>العنوان</h4>
+                        <p>دبي، الإمارات العربية المتحدة</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h4>الهاتف</h4>
+                        <a href="tel:+971508855384">+971 50 885 5384</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h4>البريد الإلكتروني</h4>
+                        <a href="mailto:info@elbasha.com">info@elbasha.com</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h4>ساعات العمل</h4>
+                        <p>الأحد - الخميس: 8 صباحاً - 6 مساءً</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>جميع الحقوق محفوظة &copy; <span id="year"></span> شركة الباشا. تصميم وتطوير بواسطة فريق الباشا</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle mobile menu
+        function toggleMenu() {
+            const nav = document.getElementById('nav-menu');
+            nav.classList.toggle('active');
+        }
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('#nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('nav-menu').classList.remove('active');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Portfolio Filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Video Play Functionality
+        const playBtns = document.querySelectorAll('.play-btn');
+        const videoModal = document.querySelector('.video-modal');
+        const modalVideo = document.querySelector('.modal-video');
+        const closeModal = document.querySelector('.close-modal');
+
+        playBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const videoSrc = e.target.closest('.portfolio-item').querySelector('video').src;
+                modalVideo.src = videoSrc;
+                videoModal.classList.add('active');
+                modalVideo.play();
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            videoModal.classList.remove('active');
+            modalVideo.pause();
+        });
+
+        videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal) {
+                videoModal.classList.remove('active');
+                modalVideo.pause();
+            }
+        });
+
+        // Animated Counter
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const statsSection = document.querySelector('.stats-section');
+
+        function animateNumbers() {
+            const sectionPosition = statsSection.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.3;
+            
+            if (sectionPosition < screenPosition) {
+                statNumbers.forEach(number => {
+                    const target = +number.getAttribute('data-count');
+                    const count = +number.innerText;
+                    const increment = target / 100;
+                    
+                    if (count < target) {
+                        number.innerText = Math.ceil(count + increment);
+                        setTimeout(animateNumbers, 20);
+                    } else {
+                        number.innerText = target;
+                    }
+                });
+            }
+        }
+
+        // Initialize elements with opacity 0
+        document.querySelectorAll('.portfolio-item').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = 'all 0.6s ease';
+        });
+
+        // Scroll animation for elements
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.portfolio-item');
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+
+            // Trigger counter animation
+            animateNumbers();
+        };
+
+        // Run on load and scroll
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Auto-play videos on hover
+        portfolioItems.forEach(item => {
+            const video = item.querySelector('video');
+            
+            item.addEventListener('mouseenter', () => {
+                video.play();
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                video.pause();
+                video.currentTime = 0;
+            });
+        });
+    </script>
+</body>
+
+</html>
