@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شركة الباشا</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #4E342E;
+            color: white;
+            padding-top: 80px; /* Added to prevent header from covering content */
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #3E2723;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        header img {
+            height: 50px;
+            width: auto;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 5px 10px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #FFEB3B;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 26px;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+            background-image: linear-gradient(rgba(78, 52, 46, 0.8), rgba(78, 52, 46, 0.8)), url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .cta {
+            background-color: #FFEB3B;
+            color: #3E2723;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta:hover {
+            background-color: #FDD835;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .services {
+            background-color: #3E2723;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #FFEB3B;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: #FFEB3B;
+            bottom: -10px;
+            left: 25%;
+        }
+
+        .services p.subtitle {
+            font-size: 18px;
+            margin-bottom: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .service-boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .service-box {
+            background-color: #4E342E;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-box h3 {
+            color: #FFEB3B;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .service-box p {
+            font-size: 15px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .service-btn {
+            background-color: #FFEB3B;
+            color: #3E2723;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .service-btn:hover {
+            background-color: #FDD835;
+            transform: translateY(-2px);
+        }
+
+        /* Contact section */
+        .contact {
+            padding: 80px 20px;
+            background-color: #4E342E;
+            text-align: center;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #3E2723;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #5D4037;
+            border-radius: 8px;
+            background-color: #5D4037;
+            color: white;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+            
+            nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 100%;
+                background-color: #3E2723;
+                padding: 20px 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            nav a {
+                padding: 10px 30px;
+                border-bottom: 1px solid #5D4037;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .service-boxes {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+        <style>
+            .excellence-section {
+                background: linear-gradient(rgba(62, 39, 35, 0.9), rgba(62, 39, 35, 0.9)), url('background.jpg');
+                background-size: cover;
+                background-position: center;
+                padding: 100px 20px;
+                text-align: center;
+                color: white;
+                position: relative;
+            }
+    
+            .excellence-content {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+    
+            .excellence-subtitle {
+                font-size: 18px;
+                color: #FFEB3B;
+                margin-bottom: 15px;
+                letter-spacing: 1px;
+            }
+    
+            .excellence-title {
+                font-size: 42px;
+                font-weight: 700;
+                margin-bottom: 25px;
+                line-height: 1.3;
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            }
+    
+            .excellence-text {
+                font-size: 18px;
+                line-height: 1.8;
+                margin-bottom: 40px;
+                max-width: 700px;
+                margin-right: auto;
+                margin-left: auto;
+            }
+    
+            .excellence-btn {
+                background-color: #FFEB3B;
+                color: #3E2723;
+                padding: 15px 35px;
+                font-size: 16px;
+                font-weight: 600;
+                border: none;
+                border-radius: 30px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+    
+            .excellence-btn:hover {
+                background-color: #FDD835;
+                transform: translateY(-3px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            }
+    
+            @media (max-width: 768px) {
+                .excellence-section {
+                    padding: 80px 20px;
+                }
+                
+                .excellence-title {
+                    font-size: 32px;
+                }
+                
+                .excellence-text {
+                    font-size: 16px;
+                }
+            }
+        </style>
+</head>
+
+<body>
+    <header>
+        <img src="logo.jpg" alt="شعار الباشا">
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <nav id="nav-menu">
+            <a href="#">الرئيسية</a>
+            <a href="#services">خدماتنا</a>
+            <a href="#contact">تواصل معنا</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>نساعدك على تأسيس أعمالك بسهولة</h1>
+        <p>
+            في شركة الباشا، نوفر خدمات تأسيس الشركات، تخليص المعاملات، واستخراج جميع أنواع التأشيرات بكفاءة واحترافية.
+        </p>
+        <a href="#services" class="cta">استكشف خدماتنا</a>
+    </section>
+
+    <section class="services" id="services">
+        <h2 class="section-title">خدماتنا</h2>
+        <p class="subtitle">نوفر لك كل ما تحتاجه لبدء وتشغيل عملك بكل سهولة</p>
+        <div class="service-boxes">
+            <div class="service-box">
+                <h3>تأسيس الشركات</h3>
+                <p>نساعدك في إجراءات تأسيس شركتك بكل احترافية وسهولة مع فريق من الخبراء القانونيين والإداريين.</p>
+                <a href="#" class="service-btn">تعرف أكثر</a>
+            </div>
+            <div class="service-box">
+                <h3>تخليص المعاملات</h3>
+                <p>نتولى عنك جميع المعاملات الورقية والإدارية بدقة وسرعة في مختلف الدوائر الحكومية.</p>
+                <a href="#" class="service-btn">تعرف أكثر</a>
+            </div>
+            <div class="service-box">
+                <h3>تأشيرات المستثمرين</h3>
+                <p>إصدار كافة أنواع التأشيرات للمستثمرين والعمالة الماهرة وأفراد العائلة بكفاءة عالية.</p>
+                <a href="#" class="service-btn">تعرف أكثر</a>
+            </div>
+            <div class="service-box">
+                <h3>خدمات الشركات</h3>
+                <p>خدمات متكاملة لإدارة وتشغيل الشركات بجودة عالية تشمل المحاسبة والموارد البشرية.</p>
+                <a href="#" class="service-btn">تعرف أكثر</a>
+            </div>
+        </div>
+    </section>
+
+
+
+        <!-- Excellence Section -->
+        <section class="excellence-section">
+            <div class="excellence-content">
+                <p class="excellence-subtitle">الريادة في التميز القانوني</p>
+                <h2 class="excellence-title">اكتشف ميزة الباشا</h2>
+                <p class="excellence-text">
+                    في شركة الباشا، نقدم حلولاً قانونية وإدارية متكاملة لتأسيس وإدارة أعمالك بكفاءة واحترافية. فريقنا من الخبراء يضمن لك معاملات سلسة ونتائج مضمونة.
+                </p>
+                <button class="excellence-btn">تعرف على خدماتنا</button>
+            </div>
+        </section>
+
+
+
+
+    <section class="contact" id="contact">
+        <h2 class="section-title">تواصل معنا</h2>
+        <p class="subtitle">للاستفسار عن خدماتنا أو طلب استشارة مجانية</p>
+        <form class="contact-form">
+            <div class="form-group">
+                <label for="name">الاسم الكامل</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">رقم الهاتف</label>
+                <input type="tel" id="phone">
+            </div>
+            <div class="form-group">
+                <label for="message">الرسالة</label>
+                <textarea id="message" required></textarea>
+            </div>
+            <button type="submit" class="cta">إرسال الرسالة</button>
+        </form>
+    </section>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('nav-menu');
+            nav.classList.toggle('active');
+        }
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('#nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('nav-menu').classList.remove('active');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
