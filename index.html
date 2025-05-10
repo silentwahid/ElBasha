@@ -17,7 +17,8 @@
             font-family: 'Cairo', sans-serif;
             background-color: #4E342E;
             color: white;
-            padding-top: 80px; /* Added to prevent header from covering content */
+            padding-top: 80px;
+            scroll-behavior: smooth;
         }
 
         header {
@@ -31,11 +32,22 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 10px 30px;
+            background-color: rgba(62, 39, 35, 0.95);
         }
 
         header img {
             height: 50px;
             width: auto;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled img {
+            height: 40px;
         }
 
         nav {
@@ -49,7 +61,25 @@
             font-weight: bold;
             font-size: 16px;
             padding: 5px 10px;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #FFEB3B;
+            bottom: 0;
+            right: 0;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+            right: auto;
+            left: 0;
         }
 
         nav a:hover {
@@ -63,6 +93,17 @@
             background: none;
             border: none;
             cursor: pointer;
+        }
+
+        section {
+            transition: all 0.5s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        section.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .hero {
@@ -83,6 +124,7 @@
             font-size: 48px;
             margin-bottom: 20px;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease 0.2s forwards;
         }
 
         .hero p {
@@ -90,6 +132,11 @@
             max-width: 700px;
             margin-bottom: 30px;
             line-height: 1.6;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+
+        .hero .cta {
+            animation: fadeInUp 1s ease 0.6s forwards;
         }
 
         .cta {
@@ -134,6 +181,12 @@
             background-color: #FFEB3B;
             bottom: -10px;
             left: 25%;
+            transition: all 0.5s ease;
+        }
+
+        .section-title:hover::after {
+            width: 80%;
+            left: 10%;
         }
 
         .services p.subtitle {
@@ -157,7 +210,7 @@
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.4s ease;
         }
 
         .service-box:hover {
@@ -194,6 +247,69 @@
             transform: translateY(-2px);
         }
 
+        /* Excellence Section */
+        .excellence-section {
+            background: linear-gradient(rgba(62, 39, 35, 0.9), rgba(62, 39, 35, 0.9)), url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .excellence-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .excellence-subtitle {
+            font-size: 18px;
+            color: #FFEB3B;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .excellence-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            line-height: 1.3;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+
+        .excellence-text {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-right: auto;
+            margin-left: auto;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .excellence-btn {
+            background-color: #FFEB3B;
+            color: #3E2723;
+            padding: 15px 35px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 1s ease 0.8s forwards;
+        }
+
+        .excellence-btn:hover {
+            background-color: #FDD835;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
         /* Contact section */
         .contact {
             padding: 80px 20px;
@@ -208,12 +324,24 @@
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s ease;
+        }
+
+        .contact-form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         }
 
         .form-group {
             margin-bottom: 20px;
             text-align: right;
+            animation: fadeInUp 0.5s ease forwards;
         }
+
+        .form-group:nth-child(1) { animation-delay: 0.2s; }
+        .form-group:nth-child(2) { animation-delay: 0.4s; }
+        .form-group:nth-child(3) { animation-delay: 0.6s; }
+        .form-group:nth-child(4) { animation-delay: 0.8s; }
 
         .form-group label {
             display: block;
@@ -230,11 +358,31 @@
             background-color: #5D4037;
             color: white;
             font-family: 'Cairo', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #FFEB3B;
+            box-shadow: 0 0 0 2px rgba(255, 235, 59, 0.3);
         }
 
         .form-group textarea {
             height: 150px;
             resize: vertical;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 768px) {
@@ -278,81 +426,20 @@
             .service-boxes {
                 grid-template-columns: 1fr;
             }
+
+            .excellence-section {
+                padding: 80px 20px;
+            }
+            
+            .excellence-title {
+                font-size: 32px;
+            }
+            
+            .excellence-text {
+                font-size: 16px;
+            }
         }
     </style>
-        <style>
-            .excellence-section {
-                background: linear-gradient(rgba(62, 39, 35, 0.9), rgba(62, 39, 35, 0.9)), url('background.jpg');
-                background-size: cover;
-                background-position: center;
-                padding: 100px 20px;
-                text-align: center;
-                color: white;
-                position: relative;
-            }
-    
-            .excellence-content {
-                max-width: 800px;
-                margin: 0 auto;
-            }
-    
-            .excellence-subtitle {
-                font-size: 18px;
-                color: #FFEB3B;
-                margin-bottom: 15px;
-                letter-spacing: 1px;
-            }
-    
-            .excellence-title {
-                font-size: 42px;
-                font-weight: 700;
-                margin-bottom: 25px;
-                line-height: 1.3;
-                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-            }
-    
-            .excellence-text {
-                font-size: 18px;
-                line-height: 1.8;
-                margin-bottom: 40px;
-                max-width: 700px;
-                margin-right: auto;
-                margin-left: auto;
-            }
-    
-            .excellence-btn {
-                background-color: #FFEB3B;
-                color: #3E2723;
-                padding: 15px 35px;
-                font-size: 16px;
-                font-weight: 600;
-                border: none;
-                border-radius: 30px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            }
-    
-            .excellence-btn:hover {
-                background-color: #FDD835;
-                transform: translateY(-3px);
-                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            }
-    
-            @media (max-width: 768px) {
-                .excellence-section {
-                    padding: 80px 20px;
-                }
-                
-                .excellence-title {
-                    font-size: 32px;
-                }
-                
-                .excellence-text {
-                    font-size: 16px;
-                }
-            }
-        </style>
 </head>
 
 <body>
@@ -362,6 +449,7 @@
         <nav id="nav-menu">
             <a href="#">الرئيسية</a>
             <a href="#services">خدماتنا</a>
+            <a href="#excellence">تميزنا</a>
             <a href="#contact">تواصل معنا</a>
         </nav>
     </header>
@@ -401,22 +489,16 @@
         </div>
     </section>
 
-
-
-        <!-- Excellence Section -->
-        <section class="excellence-section">
-            <div class="excellence-content">
-                <p class="excellence-subtitle">الريادة في التميز القانوني</p>
-                <h2 class="excellence-title">اكتشف ميزة الباشا</h2>
-                <p class="excellence-text">
-                    في شركة الباشا، نقدم حلولاً قانونية وإدارية متكاملة لتأسيس وإدارة أعمالك بكفاءة واحترافية. فريقنا من الخبراء يضمن لك معاملات سلسة ونتائج مضمونة.
-                </p>
-                <button class="excellence-btn">تعرف على خدماتنا</button>
-            </div>
-        </section>
-
-
-
+    <section class="excellence-section" id="excellence">
+        <div class="excellence-content">
+            <p class="excellence-subtitle">الريادة في التميز القانوني</p>
+            <h2 class="excellence-title">اكتشف ميزة الباشا</h2>
+            <p class="excellence-text">
+                في شركة الباشا، نقدم حلولاً قانونية وإدارية متكاملة لتأسيس وإدارة أعمالك بكفاءة واحترافية. فريقنا من الخبراء يضمن لك معاملات سلسة ونتائج مضمونة.
+            </p>
+            <button class="excellence-btn">تعرف على خدماتنا</button>
+        </div>
+    </section>
 
     <section class="contact" id="contact">
         <h2 class="section-title">تواصل معنا</h2>
@@ -443,6 +525,7 @@
     </section>
 
     <script>
+        // Toggle mobile menu
         function toggleMenu() {
             const nav = document.getElementById('nav-menu');
             nav.classList.toggle('active');
@@ -464,6 +547,36 @@
                 });
             });
         });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll animation for sections
+        const sections = document.querySelectorAll('section');
+        
+        function checkScroll() {
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight - 100) {
+                    section.classList.add('show');
+                }
+            });
+        }
+        
+        // Initial check
+        checkScroll();
+        
+        // Check on scroll
+        window.addEventListener('scroll', checkScroll);
     </script>
 </body>
 
