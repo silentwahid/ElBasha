@@ -13,34 +13,23 @@
             margin: 0;
             padding: 0;
         }
-
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #4E342E;
-            color: white;
-            padding-top: 80px;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-
-        /* Header Styles (Same as Main Page) */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 30px;
-            background-color: #3E2723;
+            background-color: #F1F1F1; /* Changed from #3E2723 to white */
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Lighter shadow */
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         header.scrolled {
             padding: 10px 30px;
-            background-color: rgba(62, 39, 35, 0.98);
+            background-color: rgba(255, 255, 255, 0.98); /* Changed to white with opacity */
             backdrop-filter: blur(5px);
         }
 
@@ -60,7 +49,7 @@
         }
 
         nav a {
-            color: white;
+            color: #3E2723; /* Changed from white to brown */
             text-decoration: none;
             font-weight: bold;
             font-size: 16px;
@@ -93,7 +82,7 @@
         .menu-toggle {
             display: none;
             font-size: 26px;
-            color: white;
+            color: #3E2723; /* Changed from white to brown */
             background: none;
             border: none;
             cursor: pointer;
@@ -104,6 +93,7 @@
             transform: scale(1.1);
         }
 
+
         /* Portfolio Hero Section */
         .portfolio-hero {
             height: 60vh;
@@ -113,8 +103,7 @@
             justify-content: center;
             text-align: center;
             padding: 0 20px;
-            background-image: linear-gradient(rgba(78, 52, 46, 0.9), rgba(78, 52, 46, 0.9)), url('portfolio-bg.jpg');
-            background-size: cover;
+            background:#dddddd;
             background-position: center;
             position: relative;
         }
@@ -577,6 +566,111 @@
             }
         }
     </style>
+    <style>
+
+
+    body {
+        font-family: 'Cairo', sans-serif;
+        background-color: #F1F1F1; /* Changed to light gray */
+        color: #3E2723; /* Changed to brown text */
+        padding-top: 80px;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+    }
+
+
+
+    /* Portfolio Filter */
+    .portfolio-filter {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin: 40px auto;
+        max-width: 800px;
+    }
+
+    .filter-btn {
+        background-color: transparent;
+        color: #3E2723; /* Changed to brown */
+        border: 2px solid #3E2723; /* Changed to brown */
+        padding: 8px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: bold;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+        background-color: #3E2723; /* Brown */
+        color: white; /* White text on active/hover */
+    }
+
+    /* Portfolio Grid */
+    .portfolio-container {
+        padding: 60px 20px;
+        background-color: #F1F1F1; /* Light gray */
+    }
+
+    .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .portfolio-item {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        height: 250px;
+        background-color: white; /* White cards */
+        border: 1px solid #D7CCC8; /* Light brown border */
+    }
+
+    .portfolio-overlay {
+        background: linear-gradient(to top, rgba(62, 39, 35, 0.9), transparent);
+    }
+
+    .portfolio-category {
+        color: #FFEB3B; /* Kept yellow */
+    }
+
+    /* Stats Section */
+    .stats-section {
+        padding: 80px 20px;
+        background-color: white; /* Changed to white */
+        text-align: center;
+    }
+
+    .stat-number {
+        color: #3E2723; /* Brown */
+    }
+
+    .stat-title {
+        color: #5D4037; /* Dark brown */
+    }
+
+    /* Footer remains unchanged */
+    footer {
+        background-color: #3E2723;
+        color: white;
+        /* All other footer styles remain the same */
+    }
+
+    /* Rest of your existing CSS remains the same */
+    /* [Previous CSS styles remain unchanged] */
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        nav {
+            background-color: #3E2723;
+        }
+    }
+</style>
 </head>
 
 <body>
