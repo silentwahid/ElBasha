@@ -15,8 +15,8 @@
         }
 
         body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #F1F1F1; /* Changed from #4E342E to light gray */
+             font-family: 'Cairo', sans-serif;
+            background-color: #FFFFFF; /* Changed from #4E342E to white */
             color: #3E2723; /* Brown text */
             padding-top: 80px;
             scroll-behavior: smooth;
@@ -24,26 +24,26 @@
         }
 
         /* Header Styles */
-        header {
+     header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 30px;
-            background-color: #3E2723; /* Brown header */
+            background-color: #F1F1F1; /* Changed from #3E2723 to white */
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Lighter shadow */
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            color: #3E2723;
         }
 
         header.scrolled {
             padding: 10px 30px;
-            background-color: rgba(62, 39, 35, 0.98);
+            background-color: rgba(255, 255, 255, 0.98); /* Changed to white with opacity */
             backdrop-filter: blur(5px);
         }
-
         header img {
             height: 50px;
             width: auto;
@@ -60,7 +60,7 @@
         }
 
         nav a {
-            color: white;
+             color: #3E2723; 
             text-decoration: none;
             font-weight: bold;
             font-size: 16px;
